@@ -48,10 +48,9 @@ void callback(String topic, byte* message, unsigned int length) {
   }
   Serial.println();
 
-  // If a message is received on the topic room/lamp, you check if the message is either on or off. Turns the lamp GPIO according to the message
   if(topic=="visitorbutton/response"){
       JSONVar apiJson = JSON.parse(messageTemp);
-      Serial.print("Changing Room lamp to ");
+      Serial.print("Changing RGB to ");
       Serial.println(messageTemp);
       pixels.clear();
       int pos = apiJson["pos"];
@@ -97,7 +96,6 @@ void setup() {
   delay(1000);
   pixels.clear();
   pixels.show();
-
 }
 
 void loop() {
@@ -123,7 +121,7 @@ void loop() {
   }
   
   if (digitalRead(BUTTON) == HIGH) {
-    Serial.println("We have a click!");
+    Serial.println("We have a knock!");
     client.publish("visitorbutton/click", "1");
     pixels.clear();
     pixels.show();
